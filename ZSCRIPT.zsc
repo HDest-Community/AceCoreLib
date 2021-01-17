@@ -28,7 +28,6 @@ class AceCore play
 		return -1, 0;
 	}
 
-	// [Ace]
 	static clearscope int GetHighestBattery(HDBattery stack, int max)
 	{
 		int MinCharge = 0, LastIndex = -1; 
