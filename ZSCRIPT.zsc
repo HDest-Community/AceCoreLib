@@ -1,0 +1,46 @@
+version "4.5"
+
+class AceCore play
+{
+	static clearscope int, int GetLowestBattery(HDBattery stack, int minCharge)
+	{
+		if (stack)
+		{
+			int LowestIndex = stack.Mags.Size() - 1;
+			int LowestCharge = stack.MaxPerUnit;
+			for (int i = LowestIndex; i >= 0; --i)
+			{
+				if (stack.Mags[i] >= minCharge && stack.Mags[i] <= LowestCharge)
+				{
+					LowestIndex = i;
+					LowestCharge = stack.Mags[i];
+				}
+			}
+
+			// [Ace] Do a final check to see if the battery fulfills the conditions.
+			// If there is only one battery and the charge is < minCharge, the loop above won't do much.
+			if (stack.Mags[LowestIndex] >= minCharge)
+			{
+				return LowestIndex, stack.Mags[LowestIndex];
+			}
+		}
+
+		return -1, 0;
+	}
+
+	// [Ace]
+	static clearscope int GetHighestBattery(HDBattery stack, int max)
+	{
+		int MinCharge = 0, LastIndex = -1; 
+		for (int i = 0; i < stack.Mags.Size(); ++i)
+		{
+			if (stack.Mags[i] >= MinCharge && stack.Mags[i] < max)
+			{
+				MinCharge = stack.Mags[i];
+				LastIndex = i;
+			}
+		}
+
+		return LastIndex;
+	}
+}
