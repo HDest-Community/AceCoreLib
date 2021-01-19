@@ -42,4 +42,10 @@ class AceCore play
 
 		return LastIndex;
 	}
+
+	static bool CheckForItem(Actor other, Name item, int amt = 1)
+	{
+		class<HDWeapon> cls = item;
+		return cls && other && other.CheckInventory(cls, amt);
+	}
 }
