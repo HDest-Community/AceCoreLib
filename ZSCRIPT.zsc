@@ -48,4 +48,104 @@ class AceCore play
 		class<HDWeapon> cls = item;
 		return cls && other && other.CheckInventory(cls, amt);
 	}
+
+	static void DrawCollisionBox(Actor a, Color col = 0xFF0000)
+	{
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, 0, 0, a.Height);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, a.Radius, 0, a.Height / 2);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, 0, a.Radius, a.Height / 2);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, 0, 0, a.Height / 2);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, 0, -a.Radius, a.Height / 2);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, -a.Radius, 0, a.Height / 2);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, 0, 0, 0);
+
+		for (double i = -a.Radius; i <= a.Radius; i += 0.25)
+		{
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, a.Radius, i, 0);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 90, a.Radius, i, 0);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 180, a.Radius, i, 0);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 270, a.Radius, i, 0);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, a.Radius, i, a.Height);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 90, a.Radius, i, a.Height);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 180, a.Radius, i, a.Height);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 270, a.Radius, i, a.Height);
+		}
+
+		for (double i = 0; i <= a.Height; i += 0.25)
+		{
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, a.Radius, a.Radius, i);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, a.Radius, -a.Radius, i);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, -a.Radius, a.Radius, i);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, -a.Radius, -a.Radius, i);
+		}
+	}
+	
+	static void DrawXYZ(Actor a, double lengthx = 128, Color col = 0xFF0000)
+	{
+		for (double i = 0; i < a.Height; i += 0.5)
+		{
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 2, 0, i * sin(a.pitch), 0, i * cos(a.pitch));
+		}
+		for (double i = 0; i < a.Radius; i += 0.5)
+		{
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 2, 0, 0, i);
+		}
+		for (double i = 0; i < lengthx; i += 0.50)
+		{
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 2, 0, i * cos(a.pitch), 0, i * sin(-a.pitch));
+		}
+	}
+
+	enum LiquidType
+	{
+		LType_Solid,
+		LType_Normal,
+		LType_Dissolving
+	}
+
+	static const Name LiquidTextures[] =
+	{
+		"BLOOD1", "BLOOD2", "BLOOD3", 
+		"SLIME01", "SLIME02", "SLIME03", "SLIME04", "SLIME05", "SLIME06", "SLIME07", "SLIME08", 
+		"FWATER1", "FWATER2", "FWATER3", "FWATER4", 
+		"F_HWATR1", "F_HWATR2", "F_HWATR3",
+		"F_PWATR1", "F_PWATR2", "F_PWATR3",
+		"P_VWATR1", "P_VWATR2", "P_VWATR3",
+		"F_WATR01", "F_WATR02", "F_WATR03", 
+		"FLATHUH1", "FLATHUH2", "FLATHUH3", "FLATHUH4",
+		"FLTFLWW1", "FLTFLWW2", "FLTFLWW3",
+		"FLTWAWA1", "FLTWAWA2", "FLTWAWA3",
+		"FLTSLUD1", "FLTSLUD2", "FLTSLUD3", 
+		"X_001", "X_002", "X_003", "X_004", "X_005", "X_006", "X_007", "X_008", "X_009", "X_010", "X_011",
+		"GRAYSLM1", "GRAYSLM2", "GRAYSLM3", "GRAYSLM4", 
+		"SLUDGE01", "SLUDGE02", "SLUDGE03", "SLUDGE04"
+		"OTAR__01", "OTAR__02", "OTAR__03", "OTAR__04", "OTAR__05", "OTAR__06", "OTAR__07",
+		"OBLODA01", "OBLODA02", "OBLODA03", "OBLODA04", "OBLODA05", "OBLODA06", "OBLODA07", "OBLODA08",
+		"OICYWA01", "OICYWA02", "OICYWA03", "OICYWA04", "OICYWA05", "OICYWA06", "OICYWA07", "OICYWA08",
+		"OWATER01", "OWATER02", "OWATER03", "OWATER04", "OWATER05", "OWATER06", "OWATER07", "OWATER08",
+		"OSLIME01", "OSLIME02", "OSLIME03", "OSLIME04",
+		"NUKAGE1", "NUKAGE2", "NUKAGE3",
+		"ONUKEA01", "ONUKEA02", "ONUKEA03", "ONUKEA04", "ONUKEA05", "ONUKEA06", "ONUKEA07", "ONUKEA08",
+		"LAVA1", "LAVA2", "LAVA3", "LAVA4",
+		"FLTLAVA1", "FLTLAVA2", "FLTLAVA3", "FLTLAVA4",
+		"OLAVAC01", "OLAVAC02", "OLAVAC03", "OLAVAC04", "OLAVAC05", "OLAVAC06", "OLAVAC07", "OLAVAC08", 
+		"OLAVAD01", "OLAVAD02", "OLAVAD03", "OLAVAD04", "OLAVAD05", "OLAVAD06", "OLAVAD07", "OLAVAD08",
+		"OSLUDG01", "OSLUDG02", "OSLUDG03", "OSLUDG04", "OSLUDG05", "OSLUDG06", "OSLUDG07", "OSLUDG08",
+		"OGOOPY01", "OGOOPY02", "OGOOPY03", "OGOOPY04", "OGOOPY05", "OGOOPY06", "OGOOPY07", "OGOOPY08"
+	};
+
+	static int CheckTextureType(TextureID texName, Sector currSector)
+	{
+		string FTex = TexMan.GetName(texName);
+				
+		for (int i = 0; i < AceCore.LiquidTextures.Size(); ++i)
+		{
+			if (FTex == AceCore.LiquidTextures[i])
+			{
+				return currSector.damageamount > 0 ? LType_Dissolving : LType_Normal;
+			}
+		}
+			
+		return LType_Solid;
+	}
 }
