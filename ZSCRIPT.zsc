@@ -51,32 +51,35 @@ class AceCore play
 
 	static void DrawCollisionBox(Actor a, Color col = 0xFF0000)
 	{
-		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, 0, 0, a.Height);
-		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, a.Radius, 0, a.Height / 2);
-		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, 0, a.Radius, a.Height / 2);
-		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, 0, 0, a.Height / 2);
-		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, 0, -a.Radius, a.Height / 2);
-		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, -a.Radius, 0, a.Height / 2);
-		a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, 0, 0, 0);
+		// [Ace] Dots.
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, 0, 0, a.Height);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, a.Radius, 0, a.Height / 2);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, 0, a.Radius, a.Height / 2);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, 0, 0, a.Height / 2);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, 0, -a.Radius, a.Height / 2);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, -a.Radius, 0, a.Height / 2);
+		a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, 0, 0, 0);
 
+		// [Ace] Horizontal lines.
 		for (double i = -a.Radius; i <= a.Radius; i += 0.25)
 		{
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, a.Radius, i, 0);
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 90, a.Radius, i, 0);
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 180, a.Radius, i, 0);
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 270, a.Radius, i, 0);
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, a.Radius, i, a.Height);
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 90, a.Radius, i, a.Height);
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 180, a.Radius, i, a.Height);
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 270, a.Radius, i, a.Height);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, a.Radius, i, 0);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, -a.Radius, i, 0);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, i, a.Radius, 0);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, i, -a.Radius, 0);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, a.Radius, i, a.Height);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, -a.Radius, i, a.Height);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, i, a.Radius, a.Height);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, i, -a.Radius, a.Height);
 		}
 
+		// [Ace] Vertical lines.
 		for (double i = 0; i <= a.Height; i += 0.25)
 		{
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, a.Radius, a.Radius, i);
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, a.Radius, -a.Radius, i);
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, -a.Radius, a.Radius, i);
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 0.5, 0, -a.Radius, -a.Radius, i);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, a.Radius, a.Radius, i);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, a.Radius, -a.Radius, i);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, -a.Radius, a.Radius, i);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT, 1, 0.5, 0, -a.Radius, -a.Radius, i);
 		}
 	}
 	
