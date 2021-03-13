@@ -140,3 +140,39 @@ class AceCore play
 		return LType_Solid;
 	}
 }
+
+class AceCoreHandler : StaticEventHandler
+{
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		let plr = players[e.Player].mo;
+		if (e.Name ~== "ACL_Ruler")
+		{
+			plr.A_SpawnItemEx("AceRuler", flags: SXF_NOCHECKPOSITION | SXF_SETMASTER);
+		}
+	}
+}
+
+class AceRuler : Actor
+{
+	override void Tick()
+	{
+		if (!master || --ReactionTime <= 0)
+		{
+			Destroy();
+			return;
+		}
+
+		double D2D = Distance2D(master);
+		double D3D = Distance3D(master);
+		master.A_Log(String.Format("Distance2D: %.2f (%.2fm); Distance3D: %.2f (%.2fm)", D2D, D2D / 42.0, D3D, D3D / 42.0));
+
+		Super.Tick();
+	}
+
+	Default
+	{
+		+NOINTERACTION
+		ReactionTime 35 * 20;
+	}
+}
