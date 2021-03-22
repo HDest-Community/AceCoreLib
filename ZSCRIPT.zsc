@@ -83,19 +83,19 @@ class AceCore play
 		}
 	}
 	
-	static void DrawXYZ(Actor a, double lengthx = 128, Color col = 0xFF0000)
+	static void DrawXYZ(Actor a, double lengthx = 128, Color col = 0xFF0000, bool fromCenter = false)
 	{
-		for (double i = 0; i < a.Height; i += 0.5)
+		for (double i = 0; i < (fromCenter ? a.Height / 2 : a.Height); i += 0.5)
 		{
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 2, 0, i * sin(a.pitch), 0, i * cos(a.pitch));
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 2, 0, i * sin(a.pitch), 0, (fromCenter ? a.Height / 2 : 0) + i * cos(a.pitch));
 		}
 		for (double i = 0; i < a.Radius; i += 0.5)
 		{
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 2, 0, 0, i);
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 2, 0, 0, i, (fromCenter ? a.Height / 2 : 0));
 		}
 		for (double i = 0; i < lengthx; i += 0.50)
 		{
-			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 2, 0, i * cos(a.pitch), 0, i * sin(-a.pitch));
+			a.A_SpawnParticle(col, SPF_FULLBRIGHT | SPF_RELATIVE, 1, 2, 0, i * cos(a.pitch), 0, (fromCenter ? a.Height / 2 : 0) + i * sin(-a.pitch));
 		}
 	}
 
