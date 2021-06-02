@@ -2,6 +2,39 @@ version "4.5"
 
 class AceCore play
 {
+	static clearscope string GetIcon(Inventory item)
+	{
+		string Icon = "";
+		let wpn = HDWeapon(item);
+		let arm = HDArmour(item);
+		let mag = HDMagAmmo(item);
+
+		if (wpn)
+		{
+			Icon = wpn.GetPickupSprite();
+		}
+		else if (arm)
+		{
+			arm.Mags[arm.Mags.Size() - 1] >= 1000 ? "ARMCA0" : "ARMSA0";
+		}
+		else if (mag)
+		{
+			mag.GetMagSprite(mag.Mags.Size() > 0 ? mag.Mags[mag.Mags.Size() - 1] : mag.MaxPerUnit);
+		}
+
+		// [Ace] Still empty? Fallback time.
+		if (Icon == "")
+		{
+			Icon = TexMan.GetName(item.Icon);
+			if (Icon == "") // [Ace] Persistent bastard, aren't ya?
+			{
+				Icon = TexMan.GetName(item.SpawnState.GetSpriteTexture(0));
+			}
+		}
+
+		return Icon;
+	}
+
 	static clearscope int, int GetLowestBattery(HDBattery stack, int minCharge)
 	{
 		if (stack)
