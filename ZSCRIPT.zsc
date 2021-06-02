@@ -2,7 +2,7 @@ version "4.5"
 
 class AceCore play
 {
-	static clearscope string GetIcon(Inventory item)
+	static clearscope string GetIcon(Inventory item, int magAmt = -1)
 	{
 		string Icon = "";
 		let wpn = HDWeapon(item);
@@ -15,11 +15,11 @@ class AceCore play
 		}
 		else if (arm)
 		{
-			arm.Mags[arm.Mags.Size() - 1] >= 1000 ? "ARMCA0" : "ARMSA0";
+			Icon = magAmt >= 1000 ? "ARMCA0" : "ARMSA0";
 		}
 		else if (mag)
 		{
-			mag.GetMagSprite(mag.Mags.Size() > 0 ? mag.Mags[mag.Mags.Size() - 1] : mag.MaxPerUnit);
+			Icon = mag.GetMagSprite(magAmt);
 		}
 
 		// [Ace] Still empty? Fallback time.
