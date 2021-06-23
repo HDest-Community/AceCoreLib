@@ -2,6 +2,16 @@ version "4.5"
 
 class AceCore play
 {
+	static clearscope int GetRealBatteryCharge(int curBattery, double div, bool useUpper)
+	{
+		if (curBattery == -1)
+		{
+			return -1;
+		}
+		double FracCharge = curBattery / div;
+		return int(useUpper ? ceil(FracCharge) : floor(FracCharge));
+	}
+
 	static clearscope string GetIcon(Inventory item, int magAmt = -1)
 	{
 		string Icon = "";
