@@ -173,7 +173,7 @@ class AceCore play
 		{
 			for (int i = 0; i < AceCore.LiquidTextures.Size(); ++i)
 			{
-				if (FTex.IndexOf(AceCore.LiquidTextures[i].MakeUpper()) != 1)
+				if (FTex.IndexOf(AceCore.LiquidTextures[i]) != -1)
 				{
 					return sec.damageamount > 0 ? LType_Dissolving : LType_Normal;
 				}
