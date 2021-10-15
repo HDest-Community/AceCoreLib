@@ -2,30 +2,6 @@ version "4.5"
 
 class AceCore play
 {
-	// [Ace] Code copied from HD which is why the variable names are fucked and I'm too lazy to fix them.
-	static Actor EjectCasing(Actor shooter, class<Actor> type, double spawndist, double spawnangle, double spawnspeed, double spawnupspeed = 0, double spawnheight = 0.82)
-	{
-		double cp = cos(shooter.pitch);
-		double sp = sin(shooter.pitch);
-		vector2 forwardvec = (cos(shooter.angle), sin(shooter.angle));
-		Actor a = Actor.Spawn(type, (shooter.pos.xy + cp * forwardvec * spawndist, shooter.pos.z + shooter.height * spawnheight - sp * spawndist));
-		spawnangle = shooter.angle + spawnangle;
-		a.vel = shooter.vel;
-		a.vel.xy += (cos(spawnangle), sin(spawnangle)) * spawnspeed;
-		a.angle = shooter.angle;
-		a.pitch = shooter.pitch;
-
-		if (spawnupspeed)
-		{
-			vector2 v = (0, spawnupspeed);
-			v = Actor.RotateVector(v, -shooter.pitch);
-			a.vel.xy += v.x * forwardvec;
-			a.vel.z += v.y;
-		}
-
-		return a;
-	}
-
 	static clearscope int GetRealBatteryCharge(int curBattery, double div, bool useUpper)
 	{
 		if (curBattery == -1)
