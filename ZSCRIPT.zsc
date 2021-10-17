@@ -12,24 +12,27 @@ class AceCore play
 		return int(useUpper ? ceil(FracCharge) : floor(FracCharge));
 	}
 
-	static clearscope string GetIcon(Inventory item, int magAmt = -1)
+	static clearscope string GetIcon(Inventory item, int magAmt = -1, bool invIconFirst = false)
 	{
 		string Icon = "";
 		let wpn = HDWeapon(item);
 		let arm = HDArmour(item);
 		let mag = HDMagAmmo(item);
 
-		if (wpn)
+		if (!invIconFirst)
 		{
-			Icon = wpn.GetPickupSprite();
-		}
-		else if (arm)
-		{
-			Icon = magAmt >= 1000 ? "ARMCA0" : "ARMSA0";
-		}
-		else if (mag)
-		{
-			Icon = mag.GetMagSprite(magAmt > -1 ? magAmt : mag.MaxPerUnit);
+			if (wpn)
+			{
+				Icon = wpn.GetPickupSprite();
+			}
+			else if (arm)
+			{
+				Icon = magAmt >= 1000 ? "ARMCA0" : "ARMSA0";
+			}
+			else if (mag)
+			{
+				Icon = mag.GetMagSprite(magAmt > -1 ? magAmt : mag.MaxPerUnit);
+			}
 		}
 
 		// [Ace] Still empty? Fallback time.
@@ -39,6 +42,11 @@ class AceCore play
 			if (Icon == "") // [Ace] Persistent bastard, aren't ya?
 			{
 				Icon = TexMan.GetName(item.SpawnState.GetSpriteTexture(0));
+
+				if (Icon == "")
+				{
+					Icon = GetIcon(item, magAmt, false);
+				}
 			}
 		}
 
