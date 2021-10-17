@@ -29,7 +29,7 @@ class AceCore play
 		}
 		else if (mag)
 		{
-			Icon = mag.GetMagSprite(magAmt);
+			Icon = mag.GetMagSprite(magAmt > -1 ? magAmt : mag.MaxPerUnit);
 		}
 
 		// [Ace] Still empty? Fallback time.
