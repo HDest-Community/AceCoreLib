@@ -12,6 +12,26 @@ class AceCore play
 		return int(useUpper ? ceil(FracCharge) : floor(FracCharge));
 	}
 
+	static clearscope string, int, Color GetBatteryColor(int charge)
+	{
+		if (charge > 13)
+		{
+			return "CELLA0", Font.CR_GREEN, Color(255, 0, 255, 0);
+		}
+		else if (charge > 6)
+		{
+			return "CELLB0", Font.CR_YELLOW, Color(255, 255, 255, 0);
+		}
+		else if (charge > 0)
+		{
+			return "CELLC0", Font.CR_RED, Color(255, 255, 0, 0);
+		}
+		else
+		{
+			return "CELLD0", Font.CR_GRAY, Color(255, 64, 64, 64);
+		}
+	}
+
 	static clearscope string GetIcon(Inventory item, int magAmt = -1, bool invIconFirst = false)
 	{
 		string Icon = "";
