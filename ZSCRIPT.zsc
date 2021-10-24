@@ -2,6 +2,19 @@ version "4.5"
 
 class AceCore play
 {
+	static void Tether(Actor puller, Actor other)
+	{
+		other.A_Face(puller, 0, 0);
+		other.A_ChangeVelocity(1, 0, -1 * sin(other.pitch), CVF_RELATIVE | CVF_REPLACE);
+		vector3 dir = puller.Vec3To(other);
+		dir.z -= puller.height / 4;
+		vector3 unit = dir.unit();
+		for (double i = 0; i < puller.Distance3D(other); i += 0.75)
+		{
+			puller.A_SpawnParticle(0x00CCCC, SPF_FULLBRIGHT, 1, 1.5, 0, unit.x * i, unit.y * i, puller.height / 2 + unit.z * i);
+		}
+	}
+
 	static clearscope int GetRealBatteryCharge(int curBattery, double div, bool useUpper)
 	{
 		if (curBattery == -1)
