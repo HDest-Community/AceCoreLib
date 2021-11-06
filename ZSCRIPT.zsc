@@ -2,6 +2,17 @@ version "4.5"
 
 class AceCore play
 {
+	static clearscope double PitchTo(Actor a, Actor b, int type = 0)
+	{
+		vector3 diff = level.Vec3Diff(a.pos, b.pos);
+		double pitch = atan2(diff.z, diff.xy.length());
+		switch (type)
+		{
+			default: return pitch; // [Ace] This works. No idea about the rest. It seems to work, but...
+			case 1: return pitch + a.pitch;
+			case 2: return abs(pitch + a.pitch);
+		}
+	}
 	static void Tether(Actor puller, Actor other)
 	{
 		other.A_Face(puller, 0, 0);
