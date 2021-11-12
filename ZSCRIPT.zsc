@@ -58,6 +58,11 @@ class AceCore play
 
 	static clearscope string GetIcon(Inventory item, int magAmt = -1, bool invIconFirst = false)
 	{
+		if (!item)
+		{
+			return "UNKNA0";
+		}
+
 		string Icon = "";
 		let wpn = HDWeapon(item);
 		let arm = HDArmour(item);
