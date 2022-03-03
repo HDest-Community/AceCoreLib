@@ -3,8 +3,8 @@ class ACESmokeBase : Actor abstract
 	override void PostBeginPlay()
 	{
 		Super.PostBeginPlay();
-		GrowSpeed = frandom(0.00275, 0.003);
-		FadeSpeed = frandom(0.00275, 0.003);
+		GrowSpeed = frandom(GSMin, GSMax);
+		FadeSpeed = frandom(FSMin, FSMax);
 		MoveDir = randompick(-1, 1);
 		A_SetRoll(random(0, 360));
 	}
@@ -29,11 +29,17 @@ class ACESmokeBase : Actor abstract
 	}
 
 	private int MoveDir;
-	private double GrowSpeed;
-	private double FadeSpeed;
+
+	private double GrowSpeed, GSMin, GSMax;
+	property GrowSpeed: GSMin, GSMax;
+
+	private double FadeSpeed, FSMin, FSMax;
+	property FadeSpeed: FSMin, FSMax;
 
 	Default
 	{
+		ACESmokeBase.GrowSpeed 0.00275, 0.003;
+		ACESmokeBase.FadeSpeed 0.00275, 0.003;
 		Radius 5;
 		Height 10;
 		Scale 0.02;
