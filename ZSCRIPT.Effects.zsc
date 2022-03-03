@@ -1,0 +1,61 @@
+class ACESmokeBase : Actor abstract
+{
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		GrowSpeed = frandom(0.00275, 0.003);
+		FadeSpeed = frandom(0.00275, 0.003);
+		MoveDir = randompick(-1, 1);
+		A_SetRoll(random(0, 360));
+	}
+
+	override void Tick()
+	{
+		if (IsFrozen())
+		{
+			return;
+		}
+
+		if (pos.z > floorz)
+		{
+			vel *= 0.95;
+			vel.z -= 0.022;
+		}
+		else if (vel.length() < 1)
+		{
+			A_ChangeVelocity(0, 0.15 * MoveDir, 0, CVF_RELATIVE | CVF_REPLACE);
+		}
+		Super.Tick();
+	}
+
+	private int MoveDir;
+	private double GrowSpeed;
+	private double FadeSpeed;
+
+	Default
+	{
+		Radius 5;
+		Height 10;
+		Scale 0.02;
+		+NOGRAVITY
+		+THRUACTORS
+		+BRIGHT
+		+NOBLOCKMAP
+		+ROLLSPRITE
+		+FORCEXYBILLBOARD
+		MaxStepHeight 8;
+		Scale 0.05;
+		Alpha 0.35;
+	}
+
+	States
+	{
+		Spawn:
+			GNSM K 1
+			{
+				A_FadeOut(FadeSpeed);
+				A_SetScale(Scale.X + GrowSpeed);
+			}
+			Loop;
+	}
+}

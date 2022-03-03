@@ -1,5 +1,7 @@
 version "4.5"
 
+#include "ZScript.Effects.zsc"
+
 class AceCore play
 {
 	static clearscope string MakeOxfordComma(Array<string> str)
