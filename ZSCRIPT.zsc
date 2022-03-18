@@ -4,6 +4,13 @@ version "4.5"
 
 class AceCore play
 {
+	static bool IsSkyAbove(Actor a)
+	{
+		FLineTraceData data;
+		a.LineTrace(0, a.ceilingz - a.floorz + 64, -90, flags: TRF_NOSKY | TRF_THRUACTORS, data: data);
+		return data.HitType == data.TRACE_HitNone;
+	}
+	
 	static clearscope double, double GetSectorSize(Sector sec)
 	{
 		double secSize = 0;
