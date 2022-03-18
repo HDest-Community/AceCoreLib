@@ -4,7 +4,7 @@ version "4.5"
 
 class AceCore play
 {
-	static clearscope double GetSectorSize(Sector sec, bool average = false)
+	static clearscope double, double GetSectorSize(Sector sec)
 	{
 		double secSize = 0;
 		for (int i = 0; i < sec.lines.Size(); ++i)
@@ -12,7 +12,7 @@ class AceCore play
 			Line ln = sec.lines[i];
 			secSize += ln.delta.length();
 		}
-		return secSize / (average ? sec.lines.Size() : 1);
+		return secSize, secSize / sec.lines.Size();
 	}
 
 	static clearscope string MakeOxfordComma(Array<string> str)
