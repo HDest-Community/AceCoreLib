@@ -1,8 +1,8 @@
 class ACESmokeBase : Actor abstract
 {
-	override void PostBeginPlay()
+	override void BeginPlay()
 	{
-		Super.PostBeginPlay();
+		Super.BeginPlay();
 		GrowSpeed = frandom(GSMin, GSMax);
 		FadeSpeed = frandom(FSMin, FSMax);
 		MoveDir = randompick(-1, 1);
