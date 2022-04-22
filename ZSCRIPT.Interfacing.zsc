@@ -10,12 +10,15 @@ class InterfaceRequest play
 
 	override void OnDestroy()
 	{
-		for (int i = 0; i < Handler.Requests.Size(); ++i)
+		if (Handler)
 		{
-			if (Handler.Requests[i] == self)
+			for (int i = 0; i < Handler.Requests.Size(); ++i)
 			{
-				Handler.Requests.Delete(i);
-				break;
+				if (Handler.Requests[i] == self)
+				{
+					Handler.Requests.Delete(i);
+					break;
+				}
 			}
 		}
 		Super.OnDestroy();
