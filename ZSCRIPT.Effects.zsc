@@ -7,6 +7,7 @@ class ACESmokeBase : Actor abstract
 		FadeSpeed = frandom(FSMin, FSMax);
 		MoveDir = randompick(-1, 1);
 		A_SetRoll(random(0, 360));
+		frame = 10;
 	}
 
 	override void Tick()
@@ -57,7 +58,7 @@ class ACESmokeBase : Actor abstract
 	States
 	{
 		Spawn:
-			GNSM K 1
+			GNSM # 1
 			{
 				A_FadeOut(FadeSpeed);
 				A_SetScale(Scale.X + GrowSpeed);
