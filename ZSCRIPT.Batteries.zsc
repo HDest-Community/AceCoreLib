@@ -1,0 +1,73 @@
+extend class AceCore
+{
+	static clearscope int, int GetLowestBattery(HDBattery stack, int minCharge)
+	{
+		if (stack)
+		{
+			int LowestIndex = stack.Mags.Size() - 1;
+			int LowestCharge = stack.MaxPerUnit;
+			for (int i = LowestIndex; i >= 0; --i)
+			{
+				if (stack.Mags[i] >= minCharge && stack.Mags[i] <= LowestCharge)
+				{
+					LowestIndex = i;
+					LowestCharge = stack.Mags[i];
+				}
+			}
+
+			// [Ace] Do a final check to see if the battery fulfills the conditions.
+			// If there is only one battery and the charge is < minCharge, the loop above won't do much.
+			if (stack.Mags[LowestIndex] >= minCharge)
+			{
+				return LowestIndex, stack.Mags[LowestIndex];
+			}
+		}
+
+		return -1, 0;
+	}
+
+	static clearscope int GetHighestBattery(HDBattery stack, int max)
+	{
+		int MinCharge = 0, LastIndex = -1; 
+		for (int i = 0; i < stack.Mags.Size(); ++i)
+		{
+			if (stack.Mags[i] >= MinCharge && stack.Mags[i] < max)
+			{
+				MinCharge = stack.Mags[i];
+				LastIndex = i;
+			}
+		}
+
+		return LastIndex;
+	}
+
+	static clearscope int GetRealBatteryCharge(int curBattery, double div, bool useUpper)
+	{
+		if (curBattery == -1)
+		{
+			return -1;
+		}
+		double FracCharge = curBattery / div;
+		return int(useUpper ? ceil(FracCharge) : floor(FracCharge));
+	}
+
+	static clearscope string, int, Color GetBatteryColor(int charge)
+	{
+		if (charge > 13)
+		{
+			return "CELLA0", Font.CR_GREEN, Color(255, 0, 255, 0);
+		}
+		else if (charge > 6)
+		{
+			return "CELLB0", Font.CR_YELLOW, Color(255, 255, 255, 0);
+		}
+		else if (charge > 0)
+		{
+			return "CELLC0", Font.CR_RED, Color(255, 255, 0, 0);
+		}
+		else
+		{
+			return "CELLD0", Font.CR_GRAY, Color(255, 64, 64, 64);
+		}
+	}
+}

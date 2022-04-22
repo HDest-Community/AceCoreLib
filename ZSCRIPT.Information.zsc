@@ -1,0 +1,84 @@
+extend class AceCore
+{
+	static clearscope double, double GetSectorSize(Sector sec)
+	{
+		double secSize = 0;
+		for (int i = 0; i < sec.lines.Size(); ++i)
+		{
+			Line ln = sec.lines[i];
+			secSize += ln.delta.length();
+		}
+		return secSize, secSize / sec.lines.Size();
+	}
+
+	static clearscope double PitchTo(Actor a, Actor b, int type = 0)
+	{
+		vector3 diff = level.Vec3Diff(a.pos, b.pos);
+		double pitch = atan2(diff.z, diff.xy.length());
+		switch (type)
+		{
+			default: return pitch; // [Ace] This works. No idea about the rest. It seems to work, but...
+			case 1: return pitch + a.pitch;
+			case 2: return abs(pitch + a.pitch);
+		}
+	}
+
+	static bool IsSkyAbove(Actor a)
+	{
+		FLineTraceData data;
+		a.LineTrace(0, a.ceilingz - a.floorz + 64, -90, flags: TRF_NOSKY | TRF_THRUACTORS, data: data);
+		return data.HitType == data.TRACE_HitNone;
+	}
+
+	static clearscope bool CheckForItem(Actor other, Name item, int amt = 1)
+	{
+		class<HDWeapon> cls = item;
+		return cls && other && other.CountInv(cls) >= amt;
+	}
+
+	static clearscope string GetIcon(Inventory item, int magAmt = -1, bool invIconFirst = false)
+	{
+		if (!item)
+		{
+			return "UNKNA0";
+		}
+
+		string Icon = "";
+		let wpn = HDWeapon(item);
+		let arm = HDArmourWorn(item);
+		let mag = HDMagAmmo(item);
+
+		if (!invIconFirst)
+		{
+			if (wpn)
+			{
+				Icon = wpn.GetPickupSprite();
+			}
+			else if (arm)
+			{
+				Icon = arm.mega ? "ARMCA0" : "ARMSA0";
+			}
+			else if (mag)
+			{
+				Icon = mag.GetMagSprite(magAmt > -1 ? magAmt : mag.MaxPerUnit);
+			}
+		}
+
+		// [Ace] Still empty? Fallback time.
+		if (Icon == "")
+		{
+			Icon = TexMan.GetName(item.Icon);
+			if (Icon == "") // [Ace] Persistent bastard, aren't ya?
+			{
+				Icon = TexMan.GetName(item.SpawnState.GetSpriteTexture(0));
+
+				if (Icon == "")
+				{
+					Icon = GetIcon(item, magAmt, false);
+				}
+			}
+		}
+
+		return Icon;
+	}
+}
