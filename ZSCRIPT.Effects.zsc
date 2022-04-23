@@ -17,12 +17,12 @@ class ACESmokeBase : Actor abstract
 			return;
 		}
 
-		if (pos.z > floorz)
+		if (pos.z > floorz || bSTANDSTILL)
 		{
 			vel *= 0.95;
 			vel.z -= 0.022;
 		}
-		else if (vel.length() < 1)
+		else if (vel.length() < 1 && !bSTANDSTILL)
 		{
 			A_ChangeVelocity(0, 0.15 * MoveDir, 0, CVF_RELATIVE | CVF_REPLACE);
 		}
