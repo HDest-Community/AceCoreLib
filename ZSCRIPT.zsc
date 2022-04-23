@@ -7,6 +7,7 @@ version "4.5"
 #include "ZScript.Interfacing.zsc"
 #include "ZScript.Strings.zsc"
 #include "ZScript.TexChecking.zsc"
+#include "ZScript.Weights.zsc"
 
 class AceCore play
 {
