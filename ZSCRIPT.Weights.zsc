@@ -1,6 +1,6 @@
 extend class AceCore
 {
-	static int GetWeightedResult(out Array<int> weights)
+	static int GetWeightedResult(out Array<int> weights, int defRet = 0)
 	{
 		int sum = 0;
 		for (int i = 0; i < weights.Size(); ++i)
@@ -17,6 +17,6 @@ extend class AceCore
 			}
 			rng -= weights[i];
 		}
-		return -1;
+		return defRet;
 	}
 }
