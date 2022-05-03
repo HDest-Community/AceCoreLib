@@ -20,7 +20,7 @@ class ACESmokeBase : Actor abstract
 		if (pos.z > floorz || bSTANDSTILL)
 		{
 			vel *= 0.95;
-			vel.z -= 0.022;
+			vel.z -= Gravity;
 		}
 		else if (vel.length() < 1 && !bSTANDSTILL)
 		{
@@ -44,6 +44,7 @@ class ACESmokeBase : Actor abstract
 		Radius 5;
 		Height 10;
 		Scale 0.02;
+		Gravity 0.022;
 		+NOGRAVITY
 		+THRUACTORS
 		+BRIGHT
