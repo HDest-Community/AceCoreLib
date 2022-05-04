@@ -8,7 +8,7 @@ class InterfaceRequest play
 	Actor Receiver;
 	string Arg;
 
-	override void OnDestroy()
+	void Remove()
 	{
 		if (Handler)
 		{
@@ -17,11 +17,11 @@ class InterfaceRequest play
 				if (Handler.Requests[i] == self)
 				{
 					Handler.Requests.Delete(i);
+					Destroy();
 					break;
 				}
 			}
 		}
-		Super.OnDestroy();
 	}
 }
 
