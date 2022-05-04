@@ -53,24 +53,5 @@ extend class AceCoreHandler
 		handler.Requests.Push(iface);
 	}
 
-	// [Ace] It is recommended to store the handler on objects that expect to call this function every tic so you don't do EventHandler.Find all the time.
-	InterfaceRequest GetRequest(Name reqName, Actor receiver)
-	{
-		if (reqName == "" || !receiver)
-		{
-			return null;
-		}
-
-		for (int i = 0; i < Requests.Size(); ++i)
-		{
-			if (Requests[i].RequestName == reqName && Requests[i].Receiver == receiver)
-			{
-				return Requests[i];
-			}
-		}
-
-		return null;
-	}
-
 	Array<InterfaceRequest> Requests;
 }
