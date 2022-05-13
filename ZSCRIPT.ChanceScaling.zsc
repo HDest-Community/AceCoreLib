@@ -1,6 +1,6 @@
 extend class AceCore
 {
-	static int GetScaledSpawnChance(int lowest, int highest)
+	static int GetScaledChance(int lowest, int highest, int minLevel, int maxLevel)
 	{
 		if (level.MapName ~== "LOTSAGUN")
 		{
@@ -8,10 +8,8 @@ extend class AceCore
 		}
 		
 		int levelCount = AceCoreGlobalStats.Get().LevelsCompleted;
-		int minLevel = acl_spawnscale_min;
-		int maxLevel = acl_spawnscale_max;
 
-		if (minLevel == 0 && maxLevel == 0 || maxLevel < minLevel || levelCount >= maxLevel)
+		if (minLevel <= 0 && maxLevel <= 0 || maxLevel < minLevel || levelCount >= maxLevel)
 		{
 			return highest;
 		}

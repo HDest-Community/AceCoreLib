@@ -8,7 +8,7 @@ version "4.5"
 #include "ZScript.Strings.zsc"
 #include "ZScript.TexChecking.zsc"
 #include "ZScript.Weights.zsc"
-#include "ZScript.SpawnScaling.zsc"
+#include "ZScript.ChanceScaling.zsc"
 
 class AceCoreGlobalStats : Thinker
 {
