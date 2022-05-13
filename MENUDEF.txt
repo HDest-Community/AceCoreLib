@@ -1,0 +1,18 @@
+OptionMenu "AceCoreMenu"
+{
+	Title "AceCore Global Settings"
+
+	StaticText "---------- SPAWN SCALING ----------", "Teal"
+	Slider "Min Map", "acl_spawnscale_min", 0, 50, 1, 0
+	Slider "Max Map", "acl_spawnscale_max", 0, 50, 1, 0
+	StaticText "Spawn chance for some items can scale over the duration of the mapset.", "White"
+	StaticText "Starts at the lowest, starts to grow past <min map>, and peaks at <max map>.", "White"
+	StaticText "Setting both to 0 disables scaling and always uses the highest value.", "White"
+	StaticText "Important: Not all items use this scaling. See each mod's readme for scaling support.", "Fire"
+}
+
+
+AddOptionMenu "OptionsMenu"
+{
+	Submenu "AceCore Settings", "AceCoreMenu"
+}

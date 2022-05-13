@@ -8,6 +8,26 @@ version "4.5"
 #include "ZScript.Strings.zsc"
 #include "ZScript.TexChecking.zsc"
 #include "ZScript.Weights.zsc"
+#include "ZScript.SpawnScaling.zsc"
+
+class AceCoreGlobalStats : Thinker
+{
+	static AceCoreGlobalStats Get()
+	{
+		ThinkerIterator it = ThinkerIterator.Create('AceCoreGlobalStats', STAT_STATIC);
+		AceCoreGlobalStats t = null;
+		while (t = AceCoreGlobalStats(it.Next()))
+		{
+			return t;
+		}
+
+		t = new('AceCoreGlobalStats');
+		t.ChangeStatNum(STAT_STATIC);
+		return t;
+	}
+
+	int LevelsCompleted;
+}
 
 class AceCore play
 {
@@ -34,6 +54,11 @@ class AceCoreHandler : EventHandler
 		{
 			plr.A_SpawnItemEx("AceRuler", flags: SXF_NOCHECKPOSITION | SXF_SETMASTER);
 		}
+	}
+
+	override void WorldUnloaded(WorldEvent e)
+	{
+		AceCoreGlobalStats.Get().LevelsCompleted++;
 	}
 }
 
