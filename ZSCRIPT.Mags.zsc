@@ -1,33 +1,40 @@
 extend class AceCore
 {
-	static clearscope int, int GetLowestMag(HDMagAmmo stack, int minAmt)
+	static clearscope int GetLowestMag(HDMagAmmo stack, int minAmt)
 	{
-		if (stack)
+		if (!stack)
 		{
-			int lowestIndex = stack.Mags.Size() - 1;
-			int lowestCharge = stack.MaxPerUnit;
-			for (int i = lowestIndex; i >= 0; --i)
-			{
-				if (stack.Mags[i] >= minAmt && stack.Mags[i] <= lowestCharge)
-				{
-					lowestIndex = i;
-					lowestCharge = stack.Mags[i];
-				}
-			}
+			return -1;
+		}
 
-			// [Ace] Do a final check to see if the battery fulfills the conditions.
-			// If there is only one mag and the amt is < minAmt, the loop above won't do much.
-			if (stack.Mags[lowestIndex] >= minAmt)
+		int lowestIndex = stack.Mags.Size() - 1;
+		int lowestCharge = stack.MaxPerUnit;
+		for (int i = lowestIndex; i >= 0; --i)
+		{
+			if (stack.Mags[i] >= minAmt && stack.Mags[i] <= lowestCharge)
 			{
-				return lowestIndex, stack.Mags[lowestIndex];
+				lowestIndex = i;
+				lowestCharge = stack.Mags[i];
 			}
 		}
 
-		return -1, 0;
+		// [Ace] Do a final check to see if the battery fulfills the conditions.
+		// If there is only one mag and the amt is < minAmt, the loop above won't do much.
+		if (stack.Mags[lowestIndex] >= minAmt)
+		{
+			return lowestIndex;
+		}
+
+		return -1;
 	}
 
 	static clearscope int GetHighestMag(HDMagAmmo stack, int maxAmt)
 	{
+		if (!stack)
+		{
+			return -1;
+		}
+		
 		int minAmt = 0, lastIndex = -1; 
 		for (int i = 0; i < stack.Mags.Size(); ++i)
 		{
