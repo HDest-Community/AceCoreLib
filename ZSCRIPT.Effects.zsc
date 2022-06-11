@@ -39,7 +39,7 @@ class ACESmokeBase : Actor abstract
 	property FadeSpeed: FSMin, FSMax;
 
 	private double StopSpeed, SSMin, SSMax;
-	property StopSpeed: StopSpeed, SSMin, SSMax;
+	property StopSpeed: SSMin, SSMax;
 
 	Default
 	{
