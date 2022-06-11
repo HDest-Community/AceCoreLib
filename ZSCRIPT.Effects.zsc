@@ -5,6 +5,7 @@ class ACESmokeBase : Actor abstract
 		Super.BeginPlay();
 		GrowSpeed = frandom(GSMin, GSMax);
 		FadeSpeed = frandom(FSMin, FSMax);
+		StopSpeed = frandom(SSMin, SSMax);
 		MoveDir = randompick(-1, 1);
 		A_SetRoll(random(0, 360));
 		frame = 10;
@@ -19,7 +20,7 @@ class ACESmokeBase : Actor abstract
 
 		if (pos.z > floorz || bSTANDSTILL)
 		{
-			vel *= 0.95;
+			vel *= StopSpeed;
 			vel.z -= Gravity;
 		}
 		else if (vel.length() < 1 && !bSTANDSTILL)
@@ -37,10 +38,14 @@ class ACESmokeBase : Actor abstract
 	private double FadeSpeed, FSMin, FSMax;
 	property FadeSpeed: FSMin, FSMax;
 
+	private double StopSpeed, SSMin, SSMax;
+	property StopSpeed: StopSpeed, SSMin, SSMax;
+
 	Default
 	{
 		ACESmokeBase.GrowSpeed 0.00275, 0.003;
 		ACESmokeBase.FadeSpeed 0.00275, 0.003;
+		ACESmokeBase.StopSpeed 0.95, 0.95;
 		Radius 5;
 		Height 10;
 		Scale 0.02;
