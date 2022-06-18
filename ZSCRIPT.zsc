@@ -43,6 +43,33 @@ class AceCore play
 			puller.A_SpawnParticle(0x00CCCC, SPF_FULLBRIGHT, 1, 1.5, 0, unit.x * i, unit.y * i, puller.height / 2 + unit.z * i);
 		}
 	}
+
+	static void GiveToPlayers(class<Inventory> cls, int amt, bool split = true)
+	{
+		if (!cls || amt <= 0)
+		{
+			return;
+		}
+
+		int playersInGame = 0;
+		if (split)
+		{
+			for (int i = 0; i < PlayerInGame.Size(); ++i)
+			{
+				if (PlayerInGame[i])
+				{
+					playersInGame++;
+				}
+			}
+		}
+		for (int i = 0; i < MAXPLAYERS; ++i)
+		{
+			if (players[i].mo)
+			{
+				players[i].mo.A_GiveInventory(cls, int(ceil(amt / double(split ? playersInGame : 1))));
+			}
+		}
+	}
 }
 
 class AceCoreHandler : EventHandler
