@@ -23,6 +23,19 @@ extend class AceCore
 		}
 	}
 
+	static clearscope int GetActivePlayerCount()
+	{
+		int total = 0;
+		for (int i = 0; i < MAXPLAYERS; ++i)
+		{
+			if (PlayerInGame[i])
+			{
+				total++;
+			}
+		}
+		return total;
+	}
+
 	static clearscope double GetPlanePitch(Sector sec, SecPlane plane)
 	{
 		vector3 lowestPos = (0, 0, int.max);
