@@ -80,7 +80,7 @@ class AceCoreHandler : EventHandler
 		if (e.Name ~== "ACL_Linetracer")
 		{
 			FLineTraceData data;
-			plr.LineTrace(plr.angle, HDCONST_ONEMETRE * 100, plr.pitch, TRF_ALLACTORS, plr.height - HDCONST_CROWNTOSHOULDER, data: data);
+			plr.LineTrace(plr.angle, HDCONST_ONEMETRE * 100, plr.pitch, TRF_ALLACTORS, plr.ViewHeight, data: data);
 			Actor.Spawn('BulletPuff', data.HitLocation);
 			if (data.HitSector)
 			{
