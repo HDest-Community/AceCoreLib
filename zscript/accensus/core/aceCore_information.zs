@@ -2,7 +2,7 @@ extend class AceCore
 {
 	static clearscope double, double GetSectorSize(Sector sec)
 	{
-		if (sec && sec.lines && sec.lines.size())
+		if (sec.lines.Size())
 		{
 			double secSize = 0;
 			foreach (ln : sec.lines) secSize += ln.delta.length();
