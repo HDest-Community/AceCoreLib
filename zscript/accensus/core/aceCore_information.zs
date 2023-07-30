@@ -5,7 +5,7 @@ extend class AceCore
 		if (sec && sec.lines && sec.lines.size())
 		{
 			double secSize = 0;
-			foreach (let ln : sec.lines) secSize += ln.delta.length();
+			foreach (ln : sec.lines) secSize += ln.delta.length();
 			
 			return secSize, secSize / sec.lines.Size();
 		}
@@ -45,7 +45,7 @@ extend class AceCore
 		vector3 lowestPos = (0, 0, int.max);
 		vector3 highestPos = (0, 0, int.min);
 
-		foreach (let ln : sec.lines)
+		foreach (ln : sec.lines)
 		{
 			double z = plane.ZAtPoint(ln.v1.p);
 			if (z < lowestPos.z) lowestPos = (ln.v1.p, z);
