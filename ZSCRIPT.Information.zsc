@@ -2,13 +2,17 @@ extend class AceCore
 {
 	static clearscope double, double GetSectorSize(Sector sec)
 	{
-		double secSize = 0;
-		for (int i = 0; i < sec.lines.Size(); ++i)
+		if (sec && sec.lines && sec.lines.size())
 		{
-			Line ln = sec.lines[i];
-			secSize += ln.delta.length();
+			double secSize = 0;
+			foreach (let ln : sec.lines) secSize += ln.delta.length();
+			
+			return secSize, secSize / sec.lines.Size();
 		}
-		return secSize, secSize / sec.lines.Size();
+		else
+		{
+			return 0, 0;
+		}
 	}
 
 	static clearscope double PitchTo(Actor a, Actor b, int type = 0)
@@ -41,15 +45,15 @@ extend class AceCore
 		vector3 lowestPos = (0, 0, int.max);
 		vector3 highestPos = (0, 0, int.min);
 
-		for (int i = 0; i < sec.lines.Size(); ++i)
+		foreach (let ln : sec.lines)
 		{
-			double z = plane.ZAtPoint(sec.lines[i].v1.p);
-			if (z < lowestPos.z) { lowestPos = (sec.lines[i].v1.p, z); }
-			if (z > highestPos.z) { highestPos = (sec.lines[i].v1.p, z); }
+			double z = plane.ZAtPoint(ln.v1.p);
+			if (z < lowestPos.z) lowestPos = (ln.v1.p, z);
+			if (z > highestPos.z) highestPos = (ln.v1.p, z);
 
-			z = plane.ZAtPoint(sec.lines[i].v2.p);
-			if (z < lowestPos.z) { lowestPos = (sec.lines[i].v2.p, z); }
-			if (z > highestPos.z) { highestPos = (sec.lines[i].v2.p, z); }
+			z = plane.ZAtPoint(ln.v2.p);
+			if (z < lowestPos.z) lowestPos = (ln.v2.p, z);
+			if (z > highestPos.z) highestPos = (ln.v2.p, z);
 		}
 
 		vector3 diff = level.Vec3Diff(lowestPos, highestPos);
