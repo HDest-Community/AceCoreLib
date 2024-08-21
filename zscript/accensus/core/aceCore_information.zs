@@ -4,10 +4,14 @@ extend class AceCore
 	{
 		if (sec.lines.Size())
 		{
-			double secSize = 0;
-			foreach (ln : sec.lines) secSize += ln.delta.length();
+			double secArea = 0;
+			double lineLength = 0;
+			foreach (ln : sec.lines) {
+				secArea += ((ln.v1.p.x * ln.v2.p.y) - (ln.v1.p.y * ln.v2.p.x));
+				lineLength += ln.delta.length();
+			}
 			
-			return secSize, secSize / sec.lines.Size();
+			return abs(secArea / 2.0), lineLength / sec.lines.Size();
 		}
 		else
 		{
